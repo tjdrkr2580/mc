@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
+import React, { useState } from "react";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
+import { TodoType } from "../types/type";
 import { todoState, toggleTodo } from "../utils/atoms";
 
 const TodoFormWrapper = styled.div`
@@ -56,8 +57,13 @@ const ToggleFormLayout = styled.section`
 
 const TodoForm = () => {
   const [isToggle, setIsToggle] = useRecoilState(toggleTodo);
-  const [todoInfo, setTodoInfo] = useState({ title: "", description: "" });
-  const [todos, setTodos] = useRecoilState(todoState);
+  const [todoInfo, setTodoInfo] = useState<TodoType>({
+    id: Math.random(),
+    title: "",
+    description: "",
+    isSuccess: false,
+  });
+  const setTodos = useSetRecoilState(todoState);
   const onSubmitTodo = () => {
     if (todoInfo.title !== "" && todoInfo.description !== "") {
       setTodos((prev) => [...prev, todoInfo]);

@@ -10,7 +10,7 @@ const TodoListWrapper = styled.ul`
 `;
 
 const TodoList = () => {
-  return <div>TodoList</div>;
+  return <TodoListWrapper></TodoListWrapper>;
 };
 
 export default TodoList;

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { useSetRecoilState } from "recoil";
+import { useRecoilState, useResetRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { toggleTodo } from "../utils/atoms";
+import { todoInput, todoState, toggleTodo } from "../utils/atoms";
 
 const TodoFormWrapper = styled.div`
   position: fixed;
@@ -56,10 +56,17 @@ const ToggleFormLayout = styled.section`
 
 const TodoForm = () => {
   const setToggleForm = useSetRecoilState(toggleTodo);
-  const [title, setTitle] = useState("");
-  const [desc, setDesc] = useState("");
+  const [todoArr, setArr] = useRecoilState(todoInput);
+  const [todos, setTodos] = useRecoilState(todoState);
+  const reset = useResetRecoilState(todoInput);
   const onSubmitTodo = () => {
-    setToggleForm(true);
+    if (todoArr.title !== "" && todoArr.description !== "") {
+      setTodos([...todos, todoArr]);
+      window.localStorage.setItem("todos", JSON.stringify(todos));
+      setToggleForm(true);
+      alert("Added successfully!");
+      reset();
+    }
   };
   return (
     <TodoFormWrapper>
@@ -68,13 +75,15 @@ const TodoForm = () => {
         <section className="input-list">
           <input
             type="text"
-            onChange={(e) => setTitle(e.target.value)}
+            onChange={(e) => setArr({ ...todoArr, title: e.target.value })}
             placeholder="title.."
           />
           <input
             type="text"
             placeholder="desc..."
-            onChange={(e) => setDesc(e.target.value)}
+            onChange={(e) =>
+              setArr({ ...todoArr, description: e.target.value })
+            }
           />
         </section>
         <section className="button-list">
@@ -86,7 +95,9 @@ const TodoForm = () => {
           >
             Cancel
           </button>
-          <button className="submit">Add !</button>
+          <button className="submit" onClick={onSubmitTodo}>
+            Add !
+          </button>
         </section>
       </ToggleFormLayout>
     </TodoFormWrapper>

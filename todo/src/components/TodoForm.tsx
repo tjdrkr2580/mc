@@ -5,6 +5,7 @@ import { TodoType } from "../types/type";
 import { todoState, toggleTodo } from "../utils/atoms";
 
 const TodoFormWrapper = styled.div`
+  z-index: 999;
   position: fixed;
   min-width: 100vw;
   min-height: 100vh;

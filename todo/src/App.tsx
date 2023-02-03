@@ -3,6 +3,7 @@ import { useRecoilValue } from "recoil";
 import styled, { ThemeProvider } from "styled-components";
 import Header from "./components/Header";
 import TodoForm from "./components/TodoForm";
+import TodoList from "./components/TodoList";
 import { darkmodeState } from "./utils/atoms";
 import { GlobalStyle } from "./utils/GlobalStyle";
 import { darkTheme, lightTheme } from "./utils/theme";
@@ -30,15 +31,13 @@ const TodoWrapper = styled.section`
 
 function App() {
   const isDarkmode = useRecoilValue(darkmodeState);
-  useEffect(() => {
-    console.log(window.localStorage.getItem("todos"));
-  }, []);
   return (
     <ThemeProvider theme={isDarkmode === true ? darkTheme : lightTheme}>
       <GlobalStyle />
       <TodoWrapper>
         <Header />
         <TodoForm />
+        <TodoList />
       </TodoWrapper>
     </ThemeProvider>
   );

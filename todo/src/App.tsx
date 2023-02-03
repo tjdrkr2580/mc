@@ -1,25 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useRecoilValue } from "recoil";
+import styled, { ThemeProvider } from "styled-components";
+import Header from "./components/Header";
+import { darkmodeState } from "./utils/atoms";
+import { GlobalStyle } from "./utils/GlobalStyle";
+import { darkTheme, lightTheme } from "./utils/theme";
+
+const TodoWrapper = styled.section`
+  min-width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: ${(props) => props.theme.bgColor};
+  color: ${(props) => props.theme.color};
+`;
 
 function App() {
+  const isDarkmode = useRecoilValue(darkmodeState);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={isDarkmode === true ? darkTheme : lightTheme}>
+      <GlobalStyle />
+      <TodoWrapper>
+        <Header />
+      </TodoWrapper>
+    </ThemeProvider>
   );
 }
 

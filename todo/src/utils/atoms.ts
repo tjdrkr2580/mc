@@ -1,5 +1,8 @@
 import { TodoType } from "./../types/type";
 import { atom } from "recoil";
+import { recoilPersist } from "recoil-persist";
+
+const { persistAtom } = recoilPersist();
 
 export const darkmodeState = atom<Boolean>({
   key: "darkmode",
@@ -9,6 +12,7 @@ export const darkmodeState = atom<Boolean>({
 export const todoState = atom<TodoType[]>({
   key: "todo",
   default: [],
+  effects_UNSTABLE: [persistAtom],
 });
 
 export const todoInput = atom<TodoType>({

@@ -1,8 +1,9 @@
+import { useEffect } from "react";
 import { useRecoilValue } from "recoil";
 import styled, { ThemeProvider } from "styled-components";
 import Header from "./components/Header";
 import TodoForm from "./components/TodoForm";
-import { darkmodeState, toggleTodo } from "./utils/atoms";
+import { darkmodeState } from "./utils/atoms";
 import { GlobalStyle } from "./utils/GlobalStyle";
 import { darkTheme, lightTheme } from "./utils/theme";
 
@@ -22,19 +23,22 @@ const TodoWrapper = styled.section`
     background: #333;
   }
   .submit {
+    color: white;
     background: ${(props) => props.theme.primary};
   }
 `;
 
 function App() {
   const isDarkmode = useRecoilValue(darkmodeState);
-  const isToggle = useRecoilValue(toggleTodo);
+  useEffect(() => {
+    console.log(window.localStorage.getItem("todos"));
+  }, []);
   return (
     <ThemeProvider theme={isDarkmode === true ? darkTheme : lightTheme}>
       <GlobalStyle />
       <TodoWrapper>
         <Header />
-        {isToggle && <TodoForm />}
+        <TodoForm />
       </TodoWrapper>
     </ThemeProvider>
   );

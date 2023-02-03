@@ -12,4 +12,13 @@ export const GlobalStyle = createGlobalStyle`
     body {
         overflow: hidden;
     }
+    button {
+        border-radius: 1rem;
+        cursor: pointer;
+        background-color: transparent;
+        font-size: 1.4rem;
+        border: none;
+        font-weight: 500;
+        padding: 0.6rem 0.8rem;
+    }
 `;

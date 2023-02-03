@@ -11,10 +11,9 @@ const ToggleModeBtn = styled.button`
   outline: none;
   svg {
     cursor: pointer;
-    color: ${(props) => props.theme.color};
     &:hover {
       transition: 0.25s color;
-      color: yellow;
+      color: #ecd777;
     }
   }
 `;

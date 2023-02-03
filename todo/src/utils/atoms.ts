@@ -1,12 +1,17 @@
+import { TodoType } from "./../types/type";
 import { atom } from "recoil";
-import { TodoType } from "../types/type";
 
 export const darkmodeState = atom<Boolean>({
   key: "darkmode",
   default: false,
 });
 
-export const todoState = atom({
+export const todoState = atom<TodoType[]>({
   key: "todo",
   default: [],
+});
+
+export const toggleTodo = atom<boolean>({
+  key: "toggleTodo",
+  default: false,
 });

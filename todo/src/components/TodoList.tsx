@@ -16,6 +16,11 @@ const TodoListWrapper = styled.ul`
     font-size: 3rem;
     margin-bottom: 5rem;
   }
+  hr {
+    width: 100%;
+    margin: 3rem 0;
+    background-color: ${(props) => props.theme.bgColor};
+  }
 `;
 
 const GridWrapper = styled.div`
@@ -124,6 +129,7 @@ const TodoList = () => {
           ) : null
         )}
       </GridWrapper>
+      <hr />
       <h1 className="title">Success ✅</h1>
       <GridWrapper>
         {todos.map((todo: TodoType) =>

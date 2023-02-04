@@ -31,6 +31,12 @@ value = "value";
 let arrayUni: (number | string)[];
 arrayUni = [0, 1, 2, "hello", true];
 
+//Literal Types 유니온에 확장판인데 해당 값이 아니라면 오류를 띄우는 것 같음.
+
+let name: "Yohan" | "Taehyun" | "Suhyun";
+name = "Taehyun";
+naem = "Daemin";
+
 function App() {
   return <div></div>;
 }

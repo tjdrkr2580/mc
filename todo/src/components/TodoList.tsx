@@ -69,6 +69,12 @@ const DoList = styled.li`
       filter: brightness(80%);
     }
   }
+  .cancel {
+    color: #333;
+    &:hover {
+      filter: brightness(80%);
+    }
+  }
   .remove {
     color: #f22222;
     &:hover {
@@ -79,23 +85,38 @@ const DoList = styled.li`
 
 const TodoList = () => {
   const [todos, setTodos] = useRecoilState(todoState);
-
+  const removeTodo = (title: string | undefined) => {
+    const newTodos = todos.filter((todo) => todo.title !== title);
+    setTodos(newTodos);
+    // setTodos([...todos, newTodos[0]]);
+  };
+  const updateTodo = (title: string | undefined) => {
+    setTodos(
+      todos.map((todo) =>
+        todo.title === title ? { ...todo, isSuccess: !todo.isSuccess } : todo
+      )
+    );
+  };
   return (
     <TodoListWrapper>
       <h1 className="title">To do!</h1>
       <GridWrapper>
         {todos.map((todo: TodoType) =>
           todo.isSuccess === false ? (
-            <DoList>
+            <DoList key={Math.random()}>
               <div className="text-wrapper">
                 <span>{todo.title}</span>
                 <p>{todo.description}</p>
               </div>
               <div className="icon-wrapper">
                 <button>
-                  <AiFillCheckCircle className="doit" size={24} />
+                  <AiFillCheckCircle
+                    onClick={() => updateTodo(todo.title)}
+                    className="doit"
+                    size={24}
+                  />
                 </button>
-                <button>
+                <button onClick={() => removeTodo(todo.title)}>
                   <AiOutlineClose className="remove" size={24} />
                 </button>
               </div>
@@ -107,9 +128,23 @@ const TodoList = () => {
       <GridWrapper>
         {todos.map((todo: TodoType) =>
           todo.isSuccess === true ? (
-            <DoList>
-              <span>{todo.title}</span>
-              <p>{todo.description}</p>
+            <DoList key={Math.random()}>
+              <div className="text-wrapper">
+                <span>{todo.title}</span>
+                <p>{todo.description}</p>
+              </div>
+              <div className="icon-wrapper">
+                <button>
+                  <AiFillCheckCircle
+                    onClick={() => updateTodo(todo.title)}
+                    className="cancel"
+                    size={24}
+                  />
+                </button>
+                <button onClick={() => removeTodo(todo.title)}>
+                  <AiOutlineClose className="remove" size={24} />
+                </button>
+              </div>
             </DoList>
           ) : null
         )}

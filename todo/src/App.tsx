@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useRecoilValue } from "recoil";
 import styled, { ThemeProvider } from "styled-components";
 import Header from "./components/Header";

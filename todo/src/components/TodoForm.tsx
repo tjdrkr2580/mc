@@ -59,7 +59,6 @@ const ToggleFormLayout = styled.section`
 const TodoForm = () => {
   const [isToggle, setIsToggle] = useRecoilState(toggleTodo);
   const [todoInfo, setTodoInfo] = useState<TodoType>({
-    id: Math.random(),
     title: "",
     description: "",
     isSuccess: false,

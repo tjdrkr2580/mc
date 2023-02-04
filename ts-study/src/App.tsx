@@ -37,6 +37,11 @@ let name: "Yohan" | "Taehyun" | "Suhyun";
 name = "Taehyun";
 naem = "Daemin";
 
+//typeof 타입을 복사함.
+
+let animal = { cat: "nyangil" };
+let animal_two: typeof animal = { cat: "soonduk" };
+
 function App() {
   return <div></div>;
 }

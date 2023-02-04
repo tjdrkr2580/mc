@@ -1,4 +1,5 @@
-import { useRecoilValue } from "recoil";
+import { useEffect } from "react";
+import { useRecoilState } from "recoil";
 import styled, { ThemeProvider } from "styled-components";
 import Header from "./components/Header";
 import TodoForm from "./components/TodoForm";
@@ -31,7 +32,12 @@ const TodoWrapper = styled.section`
 `;
 
 function App() {
-  const isDarkmode = useRecoilValue(darkmodeState);
+  const [isDarkmode, setDarkmode] = useRecoilState(darkmodeState);
+
+  useEffect(() => {
+    if (localStorage.getItem("T-darkmode") === "true") setDarkmode(true);
+    else setDarkmode(false);
+  }, []);
   return (
     <ThemeProvider theme={isDarkmode === true ? darkTheme : lightTheme}>
       <GlobalStyle />

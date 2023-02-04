@@ -22,6 +22,7 @@ const ToggleMode = () => {
   const [isDarkmode, setIsDarkmode] = useRecoilState(darkmodeState);
   const onClickToggle = () => {
     setIsDarkmode(!isDarkmode);
+    localStorage.setItem("T-darkmode", String(!isDarkmode));
   };
   return (
     <ToggleModeBtn onClick={onClickToggle}>

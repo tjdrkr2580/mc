@@ -21,7 +21,15 @@ const userA: USER = {
   password: "dawdaw",
 };
 
-//Union Types
+//Union Types 이거 아니면 이거인듯. 말 그대로 OR 연산자
+
+let value: boolean | number;
+value = true;
+value = 10;
+value = "value";
+
+let arrayUni: (number | string)[];
+arrayUni = [0, 1, 2, "hello", true];
 
 function App() {
   return <div></div>;

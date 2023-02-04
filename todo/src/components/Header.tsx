@@ -4,12 +4,14 @@ import TodoAdd from "./TodoAdd";
 import ToggleMode from "./ToggleMode";
 
 const HeaderWrapper = styled.header`
+  z-index: 998;
   width: 100vw;
   position: fixed;
   align-items: center;
   top: 0;
   left: 0;
   height: 3rem;
+  background-color: ${(props) => props.theme.bgColor};
   display: flex;
   justify-content: space-around;
   padding: 3rem 0;

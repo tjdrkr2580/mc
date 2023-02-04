@@ -10,7 +10,7 @@ export const GlobalStyle = createGlobalStyle`
         transition: 0.25s letter-spacing, 0.25s filter, 0.25s background-color;
     }
     body {
-        overflow: hidden;
+        overflow-x: hidden;
     }
     button {
         border-radius: 1rem;

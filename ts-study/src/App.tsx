@@ -35,12 +35,29 @@ arrayUni = [0, 1, 2, "hello", true];
 
 let name: "Yohan" | "Taehyun" | "Suhyun";
 name = "Taehyun";
-naem = "Daemin";
+name = "Daemin";
 
 //typeof 타입을 복사함.
 
 let animal = { cat: "nyangil" };
 let animal_two: typeof animal = { cat: "soonduk" };
+
+//enum 약간 오류 방지의 Literal Types 같음
+const enum PC {
+  MAC,
+  WINDOWS,
+  LINUX,
+}
+
+interface DD {
+  id: number;
+  OS: PC;
+}
+
+const PC1: DD = {
+  id: 1,
+  OS: PC.MAC,
+};
 
 function App() {
   return <div></div>;

@@ -30,4 +30,4 @@ const Card = ({ todo, index }: propsType) => {
   );
 };
 
-export default Card;
+export default React.memo(Card);

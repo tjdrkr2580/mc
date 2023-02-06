@@ -8,7 +8,6 @@ import { theme } from "./theme";
 
 const Wrapper = styled.div`
   display: flex;
-  max-width: 48rem;
   width: 100%;
   margin: 0 auto;
   width: 100vw;
@@ -65,7 +64,7 @@ const App = () => {
               {(magic) => (
                 <Board ref={magic.innerRef} {...magic.droppableProps}>
                   {toDos.map((todo, index) => (
-                    <Card todo={todo} index={index} />
+                    <Card key={todo} todo={todo} index={index} />
                   ))}
                   {magic.placeholder}
                 </Board>

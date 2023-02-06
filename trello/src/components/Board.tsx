@@ -1,10 +1,13 @@
 import React, { useRef } from "react";
 import { Droppable } from "react-beautiful-dnd";
+import { useForm } from "react-hook-form";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
+import { ITodo, todoState } from "../atoms";
 import Card from "../Card";
 
 interface BoardProps {
-  toDos: string[];
+  toDos: ITodo[];
   boardId: string;
 }
 
@@ -31,15 +34,47 @@ const Boardd = styled.ul<DraggableTypes>`
   flex-grow: 1;
 `;
 
+const Form = styled.form`
+  display: flex;
+  input {
+    font-size: 0.8rem;
+    width: 8rem;
+  }
+  button {
+    font-size: 0.8rem;
+  }
+  width: 100%;
+`;
+
+interface IForm {
+  todo: string;
+}
+
 const Board = ({ toDos, boardId }: BoardProps) => {
-  const inputRef = useRef<HTMLInputElement>(null);
-  const onClick = () => {
-    inputRef.current?.focus();
+  const setTodos = useSetRecoilState(todoState);
+  const { register, setValue, handleSubmit } = useForm<IForm>();
+  const onValid = ({ todo }: IForm) => {
+    const newTodo = {
+      id: Date.now(),
+      text: todo,
+    };
+    setTodos((allboard) => {
+      return {
+        ...allboard,
+        [boardId]: [newTodo, ...allboard[boardId]],
+      };
+    });
+    setValue("todo", "");
   };
   return (
-    <>
-      {/* <input ref={inputRef} type="text" placeholder="...write" />
-      <button onClick={onClick}>버튼</button> */}
+    <div>
+      <Form onSubmit={handleSubmit(onValid)}>
+        <input
+          {...register("todo", { required: true })}
+          type="text"
+          placeholder={`Add task on ${boardId}`}
+        />
+      </Form>
       <Droppable droppableId={boardId}>
         {(magic, snapshot) => (
           <Boardd
@@ -49,13 +84,18 @@ const Board = ({ toDos, boardId }: BoardProps) => {
             {...magic.droppableProps}
           >
             {toDos.map((todo, index) => (
-              <Card key={todo} todo={todo} index={index} />
+              <Card
+                key={todo.id}
+                todoId={todo.id}
+                todoText={todo.text}
+                index={index}
+              />
             ))}
             {magic.placeholder}
           </Boardd>
         )}
       </Droppable>
-    </>
+    </div>
   );
 };
 

@@ -35,13 +35,13 @@ const GlobalStyle = createGlobalStyle`
 const App = () => {
   const [toDos, setTodos] = useRecoilState(todoState);
   const onDragEnd = (args: any) => {
-    console.log(args);
     if (args.destination.index === args.source.index) return;
     if (args.source.droppableId === args.destination.droppableId) {
       setTodos((allBoards) => {
         const boardCopy = [...allBoards[args.source.droppableId]];
-        boardCopy.splice(args?.source.index, 1);
-        boardCopy.splice(args?.destination.index, 0, args.draggableId);
+        const taskObj = boardCopy[args.source.index];
+        boardCopy.splice(args.source, 1);
+        boardCopy.splice(args.destination.index, 0, taskObj);
         return {
           ...allBoards,
           [args.source.droppableId]: boardCopy,
@@ -50,9 +50,11 @@ const App = () => {
     } else {
       setTodos((allBoard) => {
         const sourceBoard = [...allBoard[args.source.droppableId]];
+        const taskObj = sourceBoard[args.source.index];
         const targetBoard = [...allBoard[args.destination.droppableId]];
+        console.log(taskObj, targetBoard);
         sourceBoard.splice(args.source.index, 1);
-        targetBoard.splice(args.destination?.index, 0, args.draggableId);
+        targetBoard.splice(args.destination?.index, 0, taskObj);
         return {
           ...allBoard,
           [args.source.droppableId]: sourceBoard,

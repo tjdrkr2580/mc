@@ -12,13 +12,14 @@ const CardWrapper = styled.div<{ isDragging: boolean }>`
 `;
 
 interface propsType {
-  todo: string;
+  todoId: number;
+  todoText: string;
   index: number;
 }
 
-const Card = ({ todo, index }: propsType) => {
+const Card = ({ todoId, todoText, index }: propsType) => {
   return (
-    <Draggable key={todo} draggableId={todo} index={index}>
+    <Draggable key={todoId} draggableId={todoId + ""} index={index}>
       {(magic, snapshot) => (
         <CardWrapper
           isDragging={snapshot.isDragging}
@@ -26,7 +27,7 @@ const Card = ({ todo, index }: propsType) => {
           {...magic.draggableProps}
           {...magic.dragHandleProps}
         >
-          {todo}
+          {todoText}
         </CardWrapper>
       )}
     </Draggable>

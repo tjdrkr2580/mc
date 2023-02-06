@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Droppable } from "react-beautiful-dnd";
 import styled from "styled-components";
 import Card from "../Card";
@@ -32,22 +32,30 @@ const Boardd = styled.ul<DraggableTypes>`
 `;
 
 const Board = ({ toDos, boardId }: BoardProps) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const onClick = () => {
+    inputRef.current?.focus();
+  };
   return (
-    <Droppable droppableId={boardId}>
-      {(magic, snapshot) => (
-        <Boardd
-          isDraggingFromThis={Boolean(snapshot.draggingFromThisWith)}
-          isDraggingOver={snapshot.isDraggingOver}
-          ref={magic.innerRef}
-          {...magic.droppableProps}
-        >
-          {toDos.map((todo, index) => (
-            <Card key={todo} todo={todo} index={index} />
-          ))}
-          {magic.placeholder}
-        </Boardd>
-      )}
-    </Droppable>
+    <>
+      {/* <input ref={inputRef} type="text" placeholder="...write" />
+      <button onClick={onClick}>버튼</button> */}
+      <Droppable droppableId={boardId}>
+        {(magic, snapshot) => (
+          <Boardd
+            isDraggingFromThis={Boolean(snapshot.draggingFromThisWith)}
+            isDraggingOver={snapshot.isDraggingOver}
+            ref={magic.innerRef}
+            {...magic.droppableProps}
+          >
+            {toDos.map((todo, index) => (
+              <Card key={todo} todo={todo} index={index} />
+            ))}
+            {magic.placeholder}
+          </Boardd>
+        )}
+      </Droppable>
+    </>
   );
 };
 

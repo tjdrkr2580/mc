@@ -1,4 +1,4 @@
-import { DragDropContext, Draggable } from "react-beautiful-dnd";
+import { DragDropContext } from "react-beautiful-dnd";
 import { useRecoilState } from "recoil";
 import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
 import { todoState } from "./atoms";

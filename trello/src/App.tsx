@@ -3,6 +3,7 @@ import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { useRecoilState } from "recoil";
 import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
 import { todoState } from "./atoms";
+import Card from "./Card";
 import { theme } from "./theme";
 
 const Wrapper = styled.div`
@@ -31,13 +32,6 @@ const Board = styled.ul`
   flex-direction: column;
   gap: 1rem;
   background-color: ${(props) => props.theme.boardColor};
-`;
-
-const Card = styled.div`
-  width: 90%;
-  border-radius: 0.25rem;
-  background-color: #e8e8e7;
-  padding: 0.5rem 0.5rem;
 `;
 
 const GlobalStyle = createGlobalStyle`
@@ -71,17 +65,7 @@ const App = () => {
               {(magic) => (
                 <Board ref={magic.innerRef} {...magic.droppableProps}>
                   {toDos.map((todo, index) => (
-                    <Draggable key={todo} draggableId={todo} index={index}>
-                      {(magic) => (
-                        <Card
-                          ref={magic.innerRef}
-                          {...magic.draggableProps}
-                          {...magic.dragHandleProps}
-                        >
-                          {todo}
-                        </Card>
-                      )}
-                    </Draggable>
+                    <Card todo={todo} index={index} />
                   ))}
                   {magic.placeholder}
                 </Board>

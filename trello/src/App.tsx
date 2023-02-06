@@ -1,5 +1,8 @@
+import { useState } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import { useRecoilState } from "recoil";
 import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
+import { todoState } from "./atoms";
 import { theme } from "./theme";
 
 const Wrapper = styled.div`
@@ -37,8 +40,6 @@ const Card = styled.div`
   padding: 0.5rem 0.5rem;
 `;
 
-const toDos = ["밥먹기", "똥싸기", "잠자기", "공부하기"];
-
 const GlobalStyle = createGlobalStyle`
   * {
     margin: 0;
@@ -50,7 +51,16 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const App = () => {
-  const onDragEnd = () => {};
+  const [toDos, setTodos] = useRecoilState(todoState);
+  const onDragEnd = (args: any) => {
+    if (args.destination.index === args.source.index) return;
+    setTodos((prev) => {
+      const copy = [...prev];
+      copy.splice(args.source.index, 1);
+      copy.splice(args.destination.index, 0, args.draggableId);
+      return copy;
+    });
+  };
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
@@ -61,7 +71,7 @@ const App = () => {
               {(magic) => (
                 <Board ref={magic.innerRef} {...magic.droppableProps}>
                   {toDos.map((todo, index) => (
-                    <Draggable draggableId={todo} index={index}>
+                    <Draggable key={todo} draggableId={todo} index={index}>
                       {(magic) => (
                         <Card
                           ref={magic.innerRef}

@@ -1,4 +1,4 @@
-import { DragDropContext } from "react-beautiful-dnd";
+import { DragDropContext, Draggable } from "react-beautiful-dnd";
 import { useRecoilState } from "recoil";
 import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
 import { todoState } from "./atoms";
@@ -35,13 +35,19 @@ const GlobalStyle = createGlobalStyle`
 const App = () => {
   const [toDos, setTodos] = useRecoilState(todoState);
   const onDragEnd = (args: any) => {
+    console.log(args);
     if (args.destination.index === args.source.index) return;
-    // setTodos((prev) => {
-    //   const copy = [...prev];
-    //   copy.splice(args.source.index, 1);
-    //   copy.splice(args.destination.index, 0, args.draggableId);
-    //   return copy;
-    // });
+    else if (args.source.droppableId === args.destination.droppableId) {
+      setTodos((allBoards) => {
+        const boardCopy = [...allBoards[args.source.droppableId]];
+        boardCopy.splice(args?.source.index, 1);
+        boardCopy.splice(args?.destination.index, 0, args.draggableId);
+        return {
+          ...allBoards,
+          [args.source.droppableId]: boardCopy,
+        };
+      });
+    }
   };
   return (
     <ThemeProvider theme={theme}>

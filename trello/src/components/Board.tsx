@@ -21,7 +21,6 @@ interface BoardProps {
 }
 
 const Board = ({ toDos, boardId }: BoardProps) => {
-  console.log(toDos);
   return (
     <Droppable droppableId={boardId}>
       {(magic) => (

@@ -32,15 +32,14 @@ const Circle = styled(motion.section)`
 
 const boxVariants: Variants = {
   start: {
-    opacity: 0,
-    scale: 0.5,
+    scale: 0,
   },
   end: {
     scale: 1,
-    opacity: 1,
+    rotateZ: 360,
     transition: {
       type: "spring",
-      duration: 0.5,
+      duration: 1.5,
       bounce: 0.5,
       delayChildren: 0.5,
       staggerChildren: 0.2,

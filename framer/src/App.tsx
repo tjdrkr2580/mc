@@ -23,7 +23,7 @@ function App() {
   return (
     <Background>
       <Box
-        transition={{ bounce: 0.6, duration: 2, type: "spring" }}
+        transition={{ duration: 0.8, type: "keyframes" }}
         initial={{ scale: 0 }}
         animate={{ scale: 1, rotateZ: 360 }}
       />

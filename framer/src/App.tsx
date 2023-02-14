@@ -5,6 +5,7 @@ import styled from "styled-components";
 const Background = styled.section`
   width: 100vw;
   height: 100vh;
+  overflow: hidden;
   background: linear-gradient(to right, #f953c6, #b91d73);
   display: flex;
   align-items: center;
@@ -13,61 +14,35 @@ const Background = styled.section`
 
 const Box = styled(motion.div)`
   position: absolute;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
   width: 19rem;
   height: 19rem;
   border-radius: 1rem;
-  background: linear-gradient(to right, #f953c6, #b91d73);
+  background-color: white;
+  /* background: linear-gradient(to right, #f953c6, #b91d73); */
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 `;
 
-const Circle = styled(motion.section)`
-  background-color: #ffffff;
-  place-self: center;
-  width: 7rem;
-  height: 7rem;
-  border-radius: 50%;
-`;
-
 const boxVariants: Variants = {
-  start: {
-    scale: 0,
-  },
-  end: {
-    scale: 1,
-    rotateZ: 360,
+  hover: { scale: 1.2, rotateZ: 90 },
+  click: { borderRadius: "50%" },
+  drag: {
+    backgroundColor: "rgba(245, 133, 145, 0.8)",
     transition: {
-      type: "spring",
-      duration: 1.5,
-      bounce: 0.5,
-      delayChildren: 0.5,
-      staggerChildren: 0.2,
+      duration: 1,
     },
-  },
-};
-
-const circleVariants: Variants = {
-  start: {
-    opacity: 0,
-    y: 30,
-  },
-  end: {
-    type: "spring",
-    opacity: 1,
-    y: 0,
   },
 };
 
 function App() {
   return (
     <Background>
-      <Box variants={boxVariants} initial="start" animate="end">
-        <Circle variants={circleVariants} />
-        <Circle variants={circleVariants} />
-        <Circle variants={circleVariants} />
-        <Circle variants={circleVariants} />
-      </Box>
+      <Box
+        drag
+        variants={boxVariants}
+        whileHover="hover"
+        whileTap="click"
+        whileDrag="drag"
+      ></Box>
     </Background>
   );
 }

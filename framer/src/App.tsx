@@ -1,5 +1,5 @@
 import { motion, Variants } from "framer-motion";
-import React from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
 
 const Background = styled.section`
@@ -12,10 +12,21 @@ const Background = styled.section`
   justify-content: center;
 `;
 
+const BiggerBox = styled(motion.div)`
+  width: 30rem;
+  height: 30rem;
+  border-radius: 1rem;
+  background-color: rgba(255, 255, 255, 0.2);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  justify-content: center; ;
+`;
+
 const Box = styled(motion.div)`
-  position: absolute;
-  width: 19rem;
-  height: 19rem;
+  width: 12rem;
+  height: 12rem;
   border-radius: 1rem;
   background-color: white;
   /* background: linear-gradient(to right, #f953c6, #b91d73); */
@@ -26,7 +37,6 @@ const boxVariants: Variants = {
   hover: { scale: 1.2, rotateZ: 90 },
   click: { borderRadius: "50%" },
   drag: {
-    backgroundColor: "rgba(245, 133, 145, 0.8)",
     transition: {
       duration: 1,
     },
@@ -34,15 +44,21 @@ const boxVariants: Variants = {
 };
 
 function App() {
+  const BiggerBoxRef = useRef(null);
   return (
     <Background>
-      <Box
-        drag
-        variants={boxVariants}
-        whileHover="hover"
-        whileTap="click"
-        whileDrag="drag"
-      ></Box>
+      <BiggerBox ref={BiggerBoxRef}>
+        <Box
+          dragSnapToOrigin
+          dragElastic={0.5}
+          drag
+          dragConstraints={BiggerBoxRef}
+          variants={boxVariants}
+          whileHover="hover"
+          whileTap="click"
+          whileDrag="drag"
+        ></Box>
+      </BiggerBox>
     </Background>
   );
 }
